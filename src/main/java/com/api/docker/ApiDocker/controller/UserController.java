@@ -15,13 +15,15 @@ import java.util.Optional;
 @RequestMapping(path = "api/v1/user")
 public class UserController {
     @Autowired
+
     private UserRepository userrepository;
 
     @GetMapping(value = "/get")
-    public List<User> GetAllUser() {
-        return userrepository.findAll();
+    public ResponseEntity<ResponseObject> GetAllUser() {
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseObject("ok", "Query users successfully", userrepository.findAll())
+        );
     }
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<ResponseObject> GetUserById(@PathVariable Long id) {
         Optional<User> foundUser = userrepository.findById(id);

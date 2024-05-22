@@ -19,10 +19,10 @@ public class Database {
         return new CommandLineRunner() {
             @Override
             public void run(String... args) throws Exception {
-                /*User UserA =  new User( "Manh", 1, 1, "0979741214", "Trancongmanh.it@gmail.com");
-                User UserB = new User( "Quoc", 1, 1, "0979741214", "Trancongmanh.it@gmail.com");
+                User UserA =  new User( "Manh", 1, 1, "0979741214", "Trancongmanh.it@gmail.com", "uploads/2f8717a163e54d7181d05c83bb05eb15.jpg");
+                User UserB = new User( "Quoc", 1, 1, "0979741214", "Trancongmanh.it@gmail.com", "uploads/2f8717a163e54d7181d05c83bb05eb15.jpg");
                 logger.info("insert data: " + userrepository.save(UserA));
-                logger.info("insert data: " + userrepository.save(UserB));*/
+                logger.info("insert data: " + userrepository.save(UserB));
             }
         };
     }
