@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  # Database service
+  database:
+    image: container-registry.oracle.com/database/enterprise:19.3.0.0  # Consider specifying version if critical
+    container_name: database
+    restart: always
+    environment:
+      ORACLE_SID: ORCLCDB
+      ORACLE_PDB: ORCL  # Optional: Remove if not applicable
+      ORACLE_PASSWORD: ${ORACLE_PASSWORD:your_oracle_password}  # Use environment variable (replace placeholder)
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-db-data:/opt/oracle/oradata  # More descriptive volume name
+
+  # Spring Boot application service
+  spring-app:
+    build: .
+    ports:
+      - "8080:8080"  # Adjust port if needed
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@database:1521/ORCLCDB  # Use service name for database
+      SPRING_DATASOURCE_USERNAME: C##DOCKER
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_APP_PASSWORD:Manhtran1412}  # Use environment variable (replace placeholder)
+    depends_on:
+      - database
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

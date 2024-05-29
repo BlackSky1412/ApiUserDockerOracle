@@ -1,17 +1,41 @@
 version: '3.8'
 services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Manhtran1412
+      MYSQL_DATABASE: APIDOCKER
+    ports:
+      - "3306:3306"
+    networks:
+      - springboot-mysql-network
+    volumes:
+      - mysql-data:/var/lib/mysql
 
-  spring-app:
-    build: .
+  springboot-app:
+    image: your-spring-boot-app-image
+    container_name: springboot-app
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "8080:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@localhost:1521/ORCLCDB
-      - SPRING_DATASOURCE_USERNAME=C##DOCKER
-      - SPRING_DATASOURCE_PASSWORD=Manhtran1412  # Sử dụng biến môi trường từ file .env
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/APIDOCKER
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Manhtran1412
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+    depends_on:
+      - mysql
     networks:
-      - backend
+      - springboot-mysql-network
 
 networks:
-  backend:
+  springboot-mysql-network:
     driver: bridge
+
+volumes:
+  mysql-data:
+    driver: local

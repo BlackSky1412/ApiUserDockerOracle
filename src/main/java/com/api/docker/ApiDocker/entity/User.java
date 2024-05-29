@@ -10,7 +10,6 @@ import lombok.Setter;
 @Table(name = "Users")
 public class User {
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(
             name  = "user_sequence",
             sequenceName = "user_sequence",
@@ -21,17 +20,22 @@ public class User {
             generator = "user_sequence"
     )
     private Long ID;
+
     @Column(nullable = false, length = 50)
     private String name;
+
     private int sex;
     private int correct;
+
     @Column(nullable = true, length = 11)
     private String phoneNumber;
+
     @Column(nullable = true, length = 50)
     private String email;
+
     private String url;
 
-    public User( String name, int sex, int correct, String phoneNumber, String email, String url) {
+    public User(String name, int sex, int correct, String phoneNumber, String email, String url) {
         this.name = name;
         this.sex = sex;
         this.correct = correct;
@@ -40,8 +44,7 @@ public class User {
         this.url = url;
     }
 
-    public User() {
-    }
+    public User() {}
 
     @Override
     public String toString() {
