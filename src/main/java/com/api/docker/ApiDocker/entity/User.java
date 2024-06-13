@@ -27,7 +27,7 @@ public class User {
     private int sex;
     private int correct;
 
-    @Column(nullable = true, length = 11)
+    @Column(nullable = true, length = 15)
     private String phoneNumber;
 
     @Column(nullable = true, length = 50)
